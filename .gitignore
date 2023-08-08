@@ -1,0 +1,7 @@
+*.lck
+*.d
+*.o
+*.hex
+*.elf
+*.map
+.vscode/settings.json

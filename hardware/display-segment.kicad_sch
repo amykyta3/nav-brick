@@ -2295,7 +2295,7 @@
     (pin "8" (uuid 866b4d9a-1d7c-4e05-a838-d82cee98ab65))
     (pin "9" (uuid 3fa343e9-813d-4fcf-9e05-85f9b89b2476))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd"
           (reference "U3") (unit 1)
         )
@@ -2332,7 +2332,7 @@
     )
     (pin "1" (uuid 18099ff6-308a-4594-8f16-30329defa1b6))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR016") (unit 1)
         )
@@ -2366,7 +2366,7 @@
     )
     (pin "1" (uuid 77386c54-9727-4b87-ac17-1c264965c333))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR09") (unit 1)
         )
@@ -2392,7 +2392,7 @@
     (property "Value" "DMP2004VK" (at 165.1 44.45 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Package_TO_SOT_SMD:SOT-563" (at 163.83 41.275 0)
+    (property "Footprint" "0-footprints:SOT-563" (at 163.83 41.275 0)
       (effects (font (size 1.27 1.27) italic) (justify left) hide)
     )
     (property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30916.pdf" (at 158.75 43.18 90)
@@ -2405,7 +2405,7 @@
     (pin "4" (uuid 8686a95d-c0ec-49cf-81bc-a67a95abab3b))
     (pin "5" (uuid af3c4454-37b7-494a-973b-a58a40fa0216))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "Q4") (unit 2)
         )
@@ -2431,7 +2431,7 @@
     (property "Value" "DMP2004VK" (at 123.19 44.45 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Package_TO_SOT_SMD:SOT-563" (at 121.92 41.275 0)
+    (property "Footprint" "0-footprints:SOT-563" (at 121.92 41.275 0)
       (effects (font (size 1.27 1.27) italic) (justify left) hide)
     )
     (property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30916.pdf" (at 116.84 43.18 90)
@@ -2444,7 +2444,7 @@
     (pin "4" (uuid d4693f8b-0163-490c-9c11-f40eb4900be5))
     (pin "5" (uuid 32ea35e9-1736-44b4-89ba-fa8a7437eeee))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "Q4") (unit 1)
         )
@@ -2479,7 +2479,7 @@
     (pin "1" (uuid 4b1dfdd5-e5a6-4e99-83e2-81239e8a9259))
     (pin "2" (uuid c4a50007-69e9-4fe5-ab7b-31965f276303))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "R9") (unit 1)
         )
@@ -2513,7 +2513,7 @@
     )
     (pin "1" (uuid 4a575fd1-afcd-4683-ab25-9cbcbc7fb5ec))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR015") (unit 1)
         )
@@ -2563,7 +2563,7 @@
     (pin "8" (uuid 82e80044-f24a-4f56-bc5f-a2066617dbc1))
     (pin "9" (uuid b24d5f22-17bd-429d-96fc-3deaab02e4cb))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd"
           (reference "U1") (unit 1)
         )
@@ -2600,7 +2600,7 @@
     )
     (pin "1" (uuid de9c78f6-7963-4232-8cf7-22d1bced7c7b))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR012") (unit 1)
         )
@@ -2657,7 +2657,7 @@
     (pin "8" (uuid f7bb4f5f-519a-482f-9efb-792494bbcea1))
     (pin "9" (uuid b5aa4881-6294-4b4d-b7d2-c853482e85bf))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd"
           (reference "U2") (unit 1)
         )
@@ -2695,7 +2695,7 @@
     (pin "1" (uuid 4ffb6408-d84b-46b9-bb39-e263ce940b8c))
     (pin "2" (uuid 4891f906-eb64-49e1-a581-ac212a7b75c2))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "R8") (unit 1)
         )
@@ -2729,7 +2729,7 @@
     )
     (pin "1" (uuid 8468e2f7-b789-4ec3-b946-f66ae33a3c55))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR010") (unit 1)
         )
@@ -2763,7 +2763,7 @@
     )
     (pin "1" (uuid d504ced9-ce58-4a33-848a-359e6477185d))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR011") (unit 1)
         )
@@ -2798,7 +2798,7 @@
     (pin "1" (uuid b4eb624f-1763-43b0-8c4c-d276663daecc))
     (pin "2" (uuid 9c8d5dc2-926f-45a3-a4b4-4032f1c6fb67))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "C23") (unit 1)
         )
@@ -2832,7 +2832,7 @@
     )
     (pin "1" (uuid e2b10415-affa-4193-817e-39c980bbc87d))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR013") (unit 1)
         )
@@ -2866,7 +2866,7 @@
     )
     (pin "1" (uuid 69f9a95a-0bdf-42a2-b7b8-92106bfe1e93))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "#PWR014") (unit 1)
         )
@@ -2901,7 +2901,7 @@
     (pin "1" (uuid 6974873e-1bbc-4152-ba36-05a8869e5518))
     (pin "2" (uuid 0a7402dc-caa1-4205-b69d-f68bc8158a85))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/77d6cc85-fb4f-41e1-aad6-e6880a525008/1b9662db-c7fb-4867-bb37-0bbc8541441b"
           (reference "C22") (unit 1)
         )

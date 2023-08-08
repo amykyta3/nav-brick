@@ -1,0 +1,47 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        },
+        {
+            "name": "avr128da32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/avr8-gnu-toolchain-linux_x86_64/lib/gcc/avr/7.3.0/include",
+                "/opt/avr8-gnu-toolchain-linux_x86_64/lib/gcc/avr/7.3.0/include-fixed",
+                "/opt/avr8-gnu-toolchain-linux_x86_64/avr/include",
+                "/opt/AVR-Dx_DFP/include"
+            ],
+            "defines": [
+                "__AVR_DEV_LIB_NAME__=avr128da32",
+                "__AVR_ARCH__=104",
+                "__attribute__(x)= ",
+                "__asm__= ",
+                "__volatile__(...)= ",
+                "__extension__= ",
+                "__inline__= "
+            ],
+            "compilerPath": "/opt/avr8-gnu-toolchain-linux_x86_64/bin/avr-gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-mmcu=avr128da32",
+                "-Os",
+                "-B=/opt/AVR-Dx_DFP/gcc/dev/avr128da32"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false
+            }
+        }
+    ],
+    "version": 4
+}

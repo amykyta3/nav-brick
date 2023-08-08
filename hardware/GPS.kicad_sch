@@ -456,7 +456,7 @@
     (pin "8" (uuid e2a555de-9098-4db4-8aa2-43588351b064))
     (pin "9" (uuid a77985f1-d54b-42e5-9dca-240ac189f800))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd"
           (reference "U16") (unit 1)
         )
@@ -484,7 +484,7 @@
     )
     (pin "1" (uuid ccd78172-7199-49bf-b73b-a1f5a849bca0))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR053") (unit 1)
         )
@@ -509,7 +509,7 @@
     )
     (pin "1" (uuid c67f4b46-1a41-4b1e-a35c-968b6b698671))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR060") (unit 1)
         )
@@ -534,7 +534,7 @@
     )
     (pin "1" (uuid a38287ce-1fb9-4ce9-83bd-102356a7f3bf))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR059") (unit 1)
         )
@@ -559,7 +559,7 @@
     )
     (pin "1" (uuid b954f747-cbe4-4677-a827-d503e4a90f22))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR057") (unit 1)
         )
@@ -584,7 +584,7 @@
     )
     (pin "1" (uuid 5d19606a-55c4-4ba4-b50e-bbc23a621343))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR058") (unit 1)
         )
@@ -610,7 +610,7 @@
     (pin "1" (uuid b805cc9e-7042-4b1d-9708-cf2789e06322))
     (pin "2" (uuid 909fd269-5d00-4a79-953c-0e3b4cdaa4cf))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "C8") (unit 1)
         )
@@ -636,7 +636,7 @@
     (pin "1" (uuid 9dd2fa53-a403-4064-accb-9c9a0a8f3713))
     (pin "2" (uuid 0b0409ba-be9e-49f2-b4f9-9f7437613476))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "R54") (unit 1)
         )
@@ -662,7 +662,7 @@
     (pin "1" (uuid 08aea367-0098-4418-b3ef-d9b06778a037))
     (pin "2" (uuid 8f9fb6cb-70be-4e2e-af0d-bf28b86abc0c))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "R53") (unit 1)
         )
@@ -687,7 +687,7 @@
     )
     (pin "1" (uuid d0411cb3-0f4d-4286-8230-68f542e8e0d8))
     (instances
-      (project "altimeter"
+      (project "navbrick"
         (path "/c26ff3ad-9cdb-4061-8a60-da1ddedb78dd/c6c84804-9af6-41b2-bee5-c7f1c52da457"
           (reference "#PWR054") (unit 1)
         )
