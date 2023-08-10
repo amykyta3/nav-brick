@@ -44,6 +44,12 @@ all:$(EXECUTABLE)
 disassemble: $(EXECUTABLE)
 	$(OBJDUMP) -d -S $< > disassembly.S
 
+.PHONY: ping
+ping:
+	pymcuprog ping --device $(MCU) --tool uart --uart /dev/ttyACM1
+
+program: $(EXECUTABLE).hex
+	pymcuprog write --device $(MCU) --tool uart --uart /dev/ttyACM1 -f $< --erase --verify
 
 ################################# AVR Compile ##################################
 
@@ -66,6 +72,10 @@ defs:
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(MCUFLAGS) -o $@ $^ $(LDFLAGS)
 	@avr-size $@
+
+# Intel-hex output
+$(EXECUTABLE).hex: $(EXECUTABLE)
+	$(OBJCOPY) -O ihex $< $@
 
 ifneq ($(MAKECMDGOALS), clean)
   -include $(DEPEND)

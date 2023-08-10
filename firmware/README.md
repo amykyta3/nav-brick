@@ -11,3 +11,17 @@
 * Unzip it and set the `AVR_DX_DFP` environment variable to point to it.
   For example:
   `export AVR_DX_DFP=/opt/AVR-Dx_DFP`
+
+## Serial Port UPDI
+
+Install pymcuprog
+```
+python3 -m pip install pymcuprog
+```
+
+Add yourself to the dialout group
+```
+sudo usermod -aG dialout $USER
+```
+
+Reboot for group settings to take effect

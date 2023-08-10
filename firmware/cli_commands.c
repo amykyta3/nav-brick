@@ -1,6 +1,10 @@
 
 #include <stdio.h>
+#include <string.h>
+
 #include "cli_commands.h"
+#include "display/display.h"
+
 
 //==============================================================================
 // Device-specific output functions
@@ -26,7 +30,7 @@ void cli_putc(char chr){
 }
 
 void cli_print_prompt(void){
-    cli_puts("\r\n>");
+    cli_puts(">");
 }
 
 void cli_print_error(int error){
@@ -45,7 +49,7 @@ void cli_print_notfound(char *strcmd){
 
 int cmd_Hello(uint8_t argc, char *argv[]){
     cli_puts("Hello World\r\n");
-    return(0);
+    return 0;
 }
 
 //------------------------------------------------------------------------------
@@ -57,5 +61,55 @@ int cmd_ArgList(uint8_t argc, char *argv[]){
         cli_puts(argv[i]);
         cli_puts("]\r\n");
     }
-    return(0);
+    return 0;
+}
+
+int cmd_DisplayLeft(uint8_t argc, char *argv[]){
+    if(argc != 2) return 1;
+    display_update_str(argv[1], ALIGN_LEFT);
+    return 0;
+}
+
+int cmd_DisplayRight(uint8_t argc, char *argv[]){
+    if(argc != 2) return 1;
+    display_update_str(argv[1], ALIGN_RIGHT);
+    return 0;
+}
+
+
+static uint8_t lightness_values[8] = {
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255
+};
+int cmd_SetLightness(uint8_t argc, char *argv[]){
+    if(argc != 3) return 1;
+
+    int idx;
+    int value;
+    sscanf(argv[1], "%d", &idx);
+    sscanf(argv[2], "%d", &value);
+
+    if(idx >= 8) return 1;
+    if(value > 255) return 1;
+
+    if(idx < 0){
+        for(int i=0; i<8; i++){
+            lightness_values[i] = value;
+        }
+    } else {
+        lightness_values[idx] = value;
+    }
+
+    if(argv[0][0] == 'p'){
+        display_set_pwm_raw(lightness_values);
+    } else {
+        display_set_lightness(lightness_values);
+    }
+    return 0;
 }

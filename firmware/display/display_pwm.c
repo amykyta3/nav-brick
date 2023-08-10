@@ -57,8 +57,8 @@ static void tca0_init(void){
 }
 
 static void tcd0_init(void){
-    // PWM freq = CLK_PER / (SYNCPRESC * CNTPRESC * (CMPACLR + CMPBCLR))
-    // 366.2 Hz = 24 MHz  / (8         * 32       * (128     + 128    ))
+    // PWM freq = CLK_PER / (SYNCPRESC * CNTPRESC * (CMPACLR + CMPBCLR + 2))
+    // 366.2 Hz = 24 MHz  / (8         * 32       * (128     + 128     + 2))
     TCD0.CTRLA = TCD_CLKSEL_CLKPER_gc
                | TCD_CNTPRES_DIV32_gc
                | TCD_SYNCPRES_DIV8_gc
@@ -69,8 +69,8 @@ static void tcd0_init(void){
     ccp_write_io((void*) &TCD0.FAULTCTRL, TCD_CMPAEN_bm | TCD_CMPBEN_bm);
 
     // CMPxCLR dictates each ramp's period
-    TCD0.CMPACLR = 128;
-    TCD0.CMPBCLR = 128;
+    TCD0.CMPACLR = 127;
+    TCD0.CMPBCLR = 127;
 
     // CMPxSET controls the duty cycle, but it is inverted
     TCD0.CMPASET = 127;
@@ -99,6 +99,9 @@ static uint8_t pwm_from_lightness(uint8_t L){
     // PWM is from 0-127. Scale down
     pwm = pwm >> 1;
 
+    // Clamp to min brightness if nonzero
+    if(pwm == 0 && L != 0) pwm = 1;
+
     return(pwm);
 }
 
@@ -117,5 +120,18 @@ void display_set_lightness(uint8_t *values){
 
     TCD0.CMPBSETL = 127 - pwm_from_lightness(values[6]);
     TCD0.CMPASETL = 127 - pwm_from_lightness(values[7]);
+    TCD0.CTRLE = TCD_SYNCEOC_bm;
+}
+
+void display_set_pwm_raw(uint8_t *values){
+    TCA0.SPLIT.LCMP0 = (values[0] >> 1);
+    TCA0.SPLIT.HCMP0 = (values[1] >> 1);
+    TCA0.SPLIT.LCMP1 = (values[2] >> 1);
+    TCA0.SPLIT.HCMP1 = (values[3] >> 1);
+    TCA0.SPLIT.LCMP2 = (values[4] >> 1);
+    TCA0.SPLIT.HCMP2 = (values[5] >> 1);
+
+    TCD0.CMPBSETL = 127 - (values[6] >> 1);
+    TCD0.CMPASETL = 127 - (values[7] >> 1);
     TCD0.CTRLE = TCD_SYNCEOC_bm;
 }

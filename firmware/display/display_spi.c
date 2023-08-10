@@ -11,6 +11,7 @@
 #define LEN_BYTES (N_LED_DIGITS*2)
 static uint8_t current_buf[LEN_BYTES];
 static uint8_t current_idx = 0;
+static uint8_t is_end = 0;
 
 void display_spi_init(void){
     LED_SPI.CTRLA = SPI_MASTER_bm | SPI_CLK2X_bm | SPI_PRESC_DIV4_gc;
@@ -40,25 +41,31 @@ void display_spi_update(void *data){
     // Transmit first byte
     LED_SPI.DATA = current_buf[LEN_BYTES-1];
     current_idx = LEN_BYTES - 2;
+    is_end = 0;
 
     // Interrupt when ready for another byte
     LED_SPI.INTCTRL = SPI_DREIE_bm;
 }
 
 ISR(LED_SPI_INT_vect){
-    if(LED_SPI.INTFLAGS & SPI_DREIF_bm){
+    if(!is_end){
         // Tx buffer is ready for more data
         if(current_idx == 0){
-            // Last byte just moved to the Tx shift register
+            // Load last byte
+            LED_SPI.DATA = current_buf[0];
+
+            // clear prior flag
+            LED_SPI.INTFLAGS = SPI_TXCIF_bm;
+
             // Disable DRE interrupt, enable TX complete interrupt
-            LED_SPI.INTFLAGS = SPI_TXCIF_bm; // clear prior flag
             LED_SPI.INTCTRL = SPI_TXCIE_bm;
+            is_end = 1;
         } else {
             // Load next byte
-            current_idx--;
             LED_SPI.DATA = current_buf[current_idx];
+            current_idx--;
         }
-    } else if (LED_SPI.INTFLAGS & SPI_TXCIF_bm){
+    } else {
         LED_SPI.INTCTRL = 0;
         PORTC.OUTSET = P_LED_CSN;
     }

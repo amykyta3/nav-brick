@@ -4,8 +4,8 @@
 #include <avr/io.h>
 
 // Port A
-#define P_USB_UART_RX   PIN0_bm
-#define P_USB_UART_TX   PIN1_bm
+#define P_USB_UART_TX   PIN0_bm
+#define P_USB_UART_RX   PIN1_bm
 #define P_I2C_SDA       PIN2_bm
 #define P_I2C_SCL       PIN3_bm
 #define P_FRAM_MOSI     PIN4_bm

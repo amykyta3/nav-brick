@@ -26,5 +26,6 @@ void display_update_str(char *str, text_align_t align);
 * 'values' is an array of 8 integers, 0-255 that denote the display lightness.
 */
 void display_set_lightness(uint8_t *values);
+void display_set_pwm_raw(uint8_t *values);
 
 #endif
