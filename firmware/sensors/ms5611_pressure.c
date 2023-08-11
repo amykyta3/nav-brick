@@ -26,16 +26,14 @@
 
 static i2c_package_t pkg;
 
-static struct {
-    uint16_t C[6];
-} prom;
+static uint16_t prom_C[6];
 
-#define C1 (prom.C[0])
-#define C2 (prom.C[1])
-#define C3 (prom.C[2])
-#define C4 (prom.C[3])
-#define C5 (prom.C[4])
-#define C6 (prom.C[5])
+#define C1 (prom_C[0])
+#define C2 (prom_C[1])
+#define C3 (prom_C[2])
+#define C4 (prom_C[3])
+#define C5 (prom_C[4])
+#define C6 (prom_C[5])
 
 void px_sensor_init(void){
     pkg.slave_addr = 0x77; // 1110111
@@ -67,12 +65,12 @@ void px_sensor_read_prom(void){
     pkg.read = true;
 
     for(int i=0; i<6; i++){
-        pkg.addr[0] = CMD_PROM_READ_START + (i << 1);
+        pkg.addr[0] = CMD_PROM_READ_START + ((i+1) << 1);
         i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
         while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
 
         // I2C reads data into buffer MSB first.
-        prom.C[i] = (d[0] << 8) | d[1];
+        prom_C[i] = (d[0] << 8) | d[1];
     }
 }
 
@@ -93,7 +91,8 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     _delay_ms(10);
 
     // Read result
-    pkg.addr_len = 0;
+    pkg.addr_len = 1;
+    pkg.addr[0] = CMD_ADC_READ;
     pkg.data_len = 3;
     pkg.data = d;
     pkg.read = true;
@@ -114,7 +113,8 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     _delay_ms(10);
 
     // Read result
-    pkg.addr_len = 0;
+    pkg.addr_len = 1;
+    pkg.addr[0] = CMD_ADC_READ;
     pkg.data_len = 3;
     pkg.data = d;
     pkg.read = true;
@@ -127,14 +127,14 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
 void px_sensor_get_sample(int32_t *temperature, int32_t *pressure){
     // temperature is in deg C * 100
     // pressure is in mbar * 100
-    uint32_t raw_temp;
-    uint32_t raw_pres;
-    px_sensor_get_raw_data(&raw_temp, &raw_pres);
+    uint32_t D1;
+    uint32_t D2;
+    px_sensor_get_raw_data(&D2, &D1);
 
     // Calculate temperature
-    int32_t dT = raw_temp - (C5 << 8);
-    int64_t TEMP64 = 2000 + dT * C6;
-    *temperature = TEMP64 >> 23;
+    int32_t dT = D2 - ((int32_t)C5 << 8);
+    int64_t TEMP64 = dT * C6;
+    *temperature = 2000 + (TEMP64 >> 23);
 
     // Second-order temperature compensation
     int64_t OFF2;
@@ -159,6 +159,6 @@ void px_sensor_get_sample(int32_t *temperature, int32_t *pressure){
     // Calculate pressure
     int64_t OFF = ((uint64_t)C2 << 16) + (((uint64_t)C4 * dT) >> 7) - OFF2;
     int64_t SENS = ((uint64_t)C1 << 15) + (((uint64_t)C3 * dT) >> 8) - SENS2;
-    int64_t P64 = ((raw_pres * SENS) >> 21) - OFF;
+    int64_t P64 = ((D1 * SENS) >> 21) - OFF;
     *pressure = P64 >> 15;
 }

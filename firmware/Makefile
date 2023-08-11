@@ -83,4 +83,4 @@ endif
 
 .PHONY: clean
 clean:
-	@rm -rf $(OBJECTS) $(DEPEND) $(EXECUTABLE) $(EXECUTABLE).map
+	@rm -rf $(OBJECTS) $(DEPEND) $(EXECUTABLE) $(EXECUTABLE).map $(EXECUTABLE).hex

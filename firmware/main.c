@@ -17,7 +17,7 @@ int main(void) {
 
     event_init();
     display_init();
-    //sensors_init();
+    sensors_init();
 
     usb_uart_init();
 

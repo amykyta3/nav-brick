@@ -4,6 +4,8 @@
 
 #include "cli_commands.h"
 #include "display/display.h"
+#include "sensors/ms5611_pressure.h"
+#include "sensors/ltr-329als_light.h"
 
 
 //==============================================================================
@@ -111,5 +113,31 @@ int cmd_SetLightness(uint8_t argc, char *argv[]){
     } else {
         display_set_lightness(lightness_values);
     }
+    return 0;
+}
+
+
+int cmd_GetLight(uint8_t argc, char *argv[]){
+    uint16_t ch0, ch1;
+    als_get_sample(&ch0, &ch1);
+
+    cli_puts("CH0: ");
+    cli_put_x16(ch0);
+    cli_puts("\r\nCH1: ");
+    cli_put_x16(ch1);
+    cli_puts("\r\n");
+    return 0;
+}
+
+int cmd_GetPressure(uint8_t argc, char *argv[]){
+    int32_t temperature;
+    int32_t pressure;
+    px_sensor_get_sample(&temperature, &pressure);
+    cli_puts("temperature: ");
+    cli_put_sd32(temperature);
+    cli_puts("\r\npressure: ");
+    cli_put_sd32(pressure);
+    cli_puts("\r\n");
+
     return 0;
 }
