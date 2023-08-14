@@ -49,10 +49,9 @@ void px_sensor_reset(void){
     pkg.read = false;
 
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     // I2C transaction is done, but need to still wait ~2.8ms for reload time
-    // TODO: Do I need this? Or will the device stall I2C implicitly?
     _delay_ms(3);
 }
 
@@ -67,7 +66,7 @@ void px_sensor_read_prom(void){
     for(int i=0; i<6; i++){
         pkg.addr[0] = CMD_PROM_READ_START + ((i+1) << 1);
         i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-        while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+        while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
         // I2C reads data into buffer MSB first.
         prom_C[i] = (d[0] << 8) | d[1];
@@ -84,10 +83,9 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     pkg.data_len = 0;
     pkg.read = false;
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     // Wait for conversion
-    // TODO: probe this on a scope... will the device hold I2C until done?
     _delay_ms(10);
 
     // Read result
@@ -97,7 +95,7 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     pkg.data = d;
     pkg.read = true;
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     *raw_temp = ((uint32_t)d[0] << 16) | ((uint32_t)d[1] << 8) | d[2];
 
@@ -107,7 +105,7 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     pkg.data_len = 0;
     pkg.read = false;
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     // Wait for conversion
     _delay_ms(10);
@@ -119,7 +117,7 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     pkg.data = d;
     pkg.read = true;
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     *raw_pressure = ((uint32_t)d[0] << 16) | ((uint32_t)d[1] << 8) | d[2];
 }

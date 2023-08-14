@@ -68,7 +68,7 @@ static void write_reg(uint8_t addr, uint8_t data){
     pkg.read = false;
 
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 }
 
 static uint8_t read_reg(uint8_t addr){
@@ -80,7 +80,7 @@ static uint8_t read_reg(uint8_t addr){
     pkg.read = true;
 
     i2c_transfer_start(&sensors_i2c_dev, &pkg, NULL);
-    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY) _delay_us(100);
+    while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
     return data;
 }
 

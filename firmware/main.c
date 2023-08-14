@@ -8,6 +8,7 @@
 #include "utils/rtc.h"
 #include "sensors/sensors.h"
 #include "board.h"
+#include "gps/gps.h"
 
 int main(void) {
     sys_init();
@@ -20,6 +21,7 @@ int main(void) {
     sensors_init();
 
     usb_uart_init();
+    gps_init();
 
     event_StartHandler(); // Does not return
 }

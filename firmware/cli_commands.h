@@ -25,7 +25,8 @@
                     {"b"     , cmd_SetLightness},\
                     {"p"     , cmd_SetLightness},\
                     {"L"     , cmd_GetLight},\
-                    {"P"     , cmd_GetPressure}
+                    {"P"     , cmd_GetPressure},\
+                    {"gps"   , cmd_GPS_Monitor}
 
 // Custom command function prototypes:
 int cmd_ArgList(uint8_t argc, char *argv[]);
@@ -35,5 +36,6 @@ int cmd_DisplayRight(uint8_t argc, char *argv[]);
 int cmd_SetLightness(uint8_t argc, char *argv[]);
 int cmd_GetLight(uint8_t argc, char *argv[]);
 int cmd_GetPressure(uint8_t argc, char *argv[]);
+int cmd_GPS_Monitor(uint8_t argc, char *argv[]);
 
 #endif

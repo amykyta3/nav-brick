@@ -32,7 +32,6 @@
 // Port F
 #define P_PWM7          PIN0_bm
 #define P_PWM6          PIN1_bm
-#define P_GPS_RSTN      PIN3_bm
 #define P_GPS_TX        PIN4_bm
 #define P_GPS_RX        PIN5_bm
 #define P_PF_UNUSED     (PIN2_bm | PIN6_bm)

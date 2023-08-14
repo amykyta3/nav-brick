@@ -5,3 +5,4 @@
 * Move light sensor farther away from GPS
 * Fix pad spacing DRC errors on DMP2004VK package
 * Remove PWM jumpers?
+* Remove GPS_RSTN signal. Conflicts with TCD special function output pin.
