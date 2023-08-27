@@ -32,4 +32,5 @@ void onIdle(void){
         c = uart_getc(&usb_uart_dev);
         cli_process_char(c);
     }
+    gps_poll_uart();
 }

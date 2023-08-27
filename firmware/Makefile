@@ -18,6 +18,7 @@ EXECUTABLE= $(PROJECT_NAME).elf
 
 SRC:= main.c
 SRC+= sys.c
+SRC+= slate.c
 SRC+= display/display.c
 SRC+= display/display_spi.c
 SRC+= display/display_pwm.c
@@ -36,6 +37,7 @@ SRC+= cli_commands.c
 SRC+= usb_uart.c
 SRC+= gps/gps_uart.c
 SRC+= gps/gps.c
+SRC+= gps/ubx.c
 
 ################################################################################
 
@@ -68,11 +70,13 @@ defs:
 
 # C Compile
 %.o: %.c
-	$(CC) $(MCUFLAGS) $(addprefix -I,$(INCLUDES)) $(CFLAGS) -c -o $@ $<
+	@echo "CC: $< --> $@"
+	@$(CC) $(MCUFLAGS) $(addprefix -I,$(INCLUDES)) $(CFLAGS) -c -o $@ $<
 
 # Link
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(MCUFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "LN: $^ --> $@"
+	@$(CC) $(MCUFLAGS) -o $@ $^ $(LDFLAGS)
 	@avr-size $@
 
 # Intel-hex output

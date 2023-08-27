@@ -142,27 +142,3 @@ int cmd_GetPressure(uint8_t argc, char *argv[]){
 
     return 0;
 }
-
-int cmd_GPS_Monitor(uint8_t argc, char *argv[]){
-    // Create a connection bridge between the two devices
-    cli_puts("Bridging USB <-> GPS\r\n");
-    while(1){
-        // USB --> GPS
-        if(uart_rdcount(&usb_uart_dev)) {
-            char c;
-            c = uart_getc(&usb_uart_dev);
-            if(c == 0x03) break; // CTRL+C
-            uart_putc(&gps_uart_dev, c);
-        }
-        // GPS --> USB
-        if(uart_rdcount(&gps_uart_dev)) {
-            char c;
-            c = uart_getc(&gps_uart_dev);
-            uart_putc(&usb_uart_dev, c);
-        }
-    }
-
-    cli_puts("\r\nConnection closed\r\n");
-
-    return 0;
-}
