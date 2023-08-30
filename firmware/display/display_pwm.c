@@ -123,6 +123,12 @@ void display_set_lightness(uint8_t *values){
     TCD0.CTRLE = TCD_SYNCEOC_bm;
 }
 
+void display_set_lightness_all(uint8_t value) {
+    uint8_t values[8];
+    for(uint8_t i=0; i<8; i++) values[i] = value;
+    display_set_lightness(values);
+}
+
 void display_set_pwm_raw(uint8_t *values){
     TCA0.SPLIT.LCMP0 = (values[0] >> 1);
     TCA0.SPLIT.HCMP0 = (values[1] >> 1);

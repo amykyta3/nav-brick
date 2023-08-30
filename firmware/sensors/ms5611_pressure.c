@@ -8,6 +8,7 @@
 
 #include "sensors.h"
 #include "ms5611_pressure.h"
+#include "../utils/event_queue.h"
 
 #define CMD_RESET               0x1E
 #define CMD_CONV_D1_OSR_256     0x40
@@ -86,7 +87,10 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     // Wait for conversion
-    _delay_ms(10);
+    for(int i=0; i<10; i++) {
+        _delay_ms(1);
+        event_YieldEvent();
+    }
 
     // Read result
     pkg.addr_len = 1;
@@ -108,7 +112,10 @@ void px_sensor_get_raw_data(uint32_t *raw_temp, uint32_t *raw_pressure){
     while(i2c_transfer_status(&sensors_i2c_dev) == I2C_BUSY);
 
     // Wait for conversion
-    _delay_ms(10);
+    for(int i=0; i<10; i++) {
+        _delay_ms(1);
+        event_YieldEvent();
+    }
 
     // Read result
     pkg.addr_len = 1;

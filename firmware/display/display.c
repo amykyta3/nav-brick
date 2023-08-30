@@ -13,6 +13,7 @@ void display_init(void){
 
     // Clear display
     display_update_str("", ALIGN_LEFT);
+    display_set_lightness_all(128);
 }
 
 void display_update_str(char *str, text_align_t align){

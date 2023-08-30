@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include <avr/interrupt.h>
 
 #include "sys.h"
@@ -9,6 +11,11 @@
 #include "sensors/sensors.h"
 #include "board.h"
 #include "gps/gps.h"
+#include "calculations.h"
+#include "utils/string_ext.h"
+#include "utils/event_queue.h"
+
+static void update_display_callback(void *d);
 
 int main(void) {
     sys_init();
@@ -23,6 +30,15 @@ int main(void) {
     usb_uart_init();
     gps_init();
 
+    // Start display update timer
+    timer_t timer;
+    struct timerctl timer_settings;
+    timer_settings.interval = RTC_CNT_FREQ;
+    timer_settings.repeat = true;
+    timer_settings.callback = update_display_callback;
+    timer_settings.callback_data = NULL;
+    timer_start(&timer, &timer_settings);
+
     event_StartHandler(); // Does not return
 }
 
@@ -33,4 +49,35 @@ void onIdle(void){
         cli_process_char(c);
     }
     gps_poll_uart();
+}
+
+
+static void update_display(void);
+
+static void update_display_callback(void *d){
+    event_PushEvent(update_display, NULL, 0);
+}
+
+static void update_display(void){
+    float alt = get_px_altitude();
+    alt *= 10;
+
+    char str[16];
+
+
+    snprint_sd16(str, sizeof(str), alt);
+
+    uint8_t end = strlen(str);
+
+    // Insert a decimal point
+    str[end] = str[end-1];
+    str[end-1] = '.';
+    end++;
+
+    // Append " M"
+    str[end++] = ' ';
+    str[end++] = 'M';
+    str[end] = 0;
+
+    display_update_str(str, ALIGN_RIGHT);
 }

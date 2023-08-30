@@ -34,6 +34,7 @@ SRC+= sensors/sensors.c
 SRC+= sensors/ms5611_pressure.c
 SRC+= sensors/ltr-329als_light.c
 SRC+= cli_commands.c
+SRC+= calculations.c
 SRC+= usb_uart.c
 SRC+= gps/gps_uart.c
 SRC+= gps/gps.c

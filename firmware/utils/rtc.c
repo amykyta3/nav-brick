@@ -634,7 +634,7 @@ void timer_stop(timer_t *timerid){
 // General RTC Functions
 //==============================================================================
 void rtc_init(void){
-    RTC.CTRLA = RTC_PRESCALER_gc;
+    RTC.CTRLA = RTC_PRESCALER_gc | RTC_RTCEN_bm;
     RTC.CLKSEL = RTC_CLKSEL_gc;
 
     while(RTC.STATUS & (RTC_PERBUSY_bm | RTC_CNTBUSY_bm));
@@ -658,9 +658,6 @@ void rtc_init(void){
     #if(RTC_TIMER_ENABLE)
         Timer_first = NULL;
     #endif
-
-    // Start RTC
-    RTC.CTRLA = RTC_PRESCALER_gc | RTC_RTCEN_bm;
 }
 
 //------------------------------------------------------------------------------

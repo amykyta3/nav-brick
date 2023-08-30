@@ -6,7 +6,8 @@
 #include "display/display.h"
 #include "sensors/ms5611_pressure.h"
 #include "sensors/ltr-329als_light.h"
-#include "gps/gps_uart.h"
+#include "slate.h"
+#include "calculations.h"
 
 
 //==============================================================================
@@ -50,12 +51,6 @@ void cli_print_notfound(char *strcmd){
 // Custom Commands
 //==============================================================================
 
-int cmd_Hello(uint8_t argc, char *argv[]){
-    cli_puts("Hello World\r\n");
-    return 0;
-}
-
-//------------------------------------------------------------------------------
 int cmd_ArgList(uint8_t argc, char *argv[]){
     cli_puts("Argument List:\r\n");
     int i;
@@ -109,7 +104,7 @@ int cmd_SetLightness(uint8_t argc, char *argv[]){
         lightness_values[idx] = value;
     }
 
-    if(argv[0][0] == 'p'){
+    if(argv[0][1] == 'p'){
         display_set_pwm_raw(lightness_values);
     } else {
         display_set_lightness(lightness_values);
@@ -117,28 +112,59 @@ int cmd_SetLightness(uint8_t argc, char *argv[]){
     return 0;
 }
 
+int cmd_DumpSlate(uint8_t argc, char *argv[]){
+    cli_puts("gps.altitude: ");
+    cli_put_sd32(Slate.gps.altitude);
+    cli_puts(" +/- ");
+    cli_put_d32(Slate.gps.altitude_accuracy);
 
-int cmd_GetLight(uint8_t argc, char *argv[]){
-    uint16_t ch0, ch1;
-    als_get_sample(&ch0, &ch1);
+    cli_puts("\r\ngps.speed: ");
+    cli_put_d32(Slate.gps.speed);
+    cli_puts(" +/- ");
+    cli_put_d32(Slate.gps.speed_accuracy);
 
-    cli_puts("CH0: ");
-    cli_put_x16(ch0);
-    cli_puts("\r\nCH1: ");
-    cli_put_x16(ch1);
+    cli_puts("\r\ngps.heading: ");
+    cli_put_sd32(Slate.gps.heading);
+    cli_puts(" +/- ");
+    cli_put_d32(Slate.gps.heading_accuracy);
+
+    cli_puts("\r\nlight.vis: ");
+    cli_put_d16(Slate.light.vis);
+    cli_puts("\r\nlight.ir: ");
+    cli_put_d16(Slate.light.ir);
+
+    cli_puts("\r\ntemperature: ");
+    cli_put_d32(Slate.temperature);
+
+    cli_puts("\r\npressure: ");
+    cli_put_d32(Slate.pressure);
+
+    cli_puts("\r\npoll_duration: ");
+    cli_put_d16(Slate.poll_duration);
+
     cli_puts("\r\n");
+
     return 0;
 }
 
-int cmd_GetPressure(uint8_t argc, char *argv[]){
-    int32_t temperature;
-    int32_t pressure;
-    px_sensor_get_sample(&temperature, &pressure);
-    cli_puts("temperature: ");
-    cli_put_sd32(temperature);
-    cli_puts("\r\npressure: ");
-    cli_put_sd32(pressure);
-    cli_puts("\r\n");
+int cmd_Altitude(uint8_t argc, char *argv[]){
+    double alt;
 
+    alt = get_px_altitude();
+    alt *= 10;
+
+    cli_puts("altitude: ");
+    cli_put_sd32(alt);
+    cli_puts(" mm\r\n");
+
+    return 0;
+}
+
+int cmd_RTC_State(uint8_t argc, char *argv[]){
+    cli_puts("CNT: ");
+    cli_put_d16(RTC.CNT);
+    cli_puts(", CMP: ");
+    cli_put_d16(RTC.CMP);
+    cli_puts("\r\n");
     return 0;
 }

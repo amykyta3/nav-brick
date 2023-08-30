@@ -214,8 +214,8 @@ static void process_POSLLH_frame(ubx_frame_t *f){
     vAcc = pop_U4(f);
 
     // Save to slate
-    Slate.gps.altitude_mm = hMSL;
-    Slate.gps.altitude_accuracy_mm = vAcc;
+    Slate.gps.altitude = hMSL;
+    Slate.gps.altitude_accuracy = vAcc;
 }
 
 static void process_VELNED_frame(ubx_frame_t *f){
@@ -235,10 +235,10 @@ static void process_VELNED_frame(ubx_frame_t *f){
     cAcc = pop_U4(f);
 
     // Save to slate
-    Slate.gps.speed_cmps = speed;
-    Slate.gps.speed_accuracy_cmps = sAcc;
-    Slate.gps.heading_deg_1em5 = heading;
-    Slate.gps.heading_accuracy_deg_1em5 = cAcc;
+    Slate.gps.speed = speed;
+    Slate.gps.speed_accuracy = sAcc;
+    Slate.gps.heading = heading;
+    Slate.gps.heading_accuracy = cAcc;
 }
 
 //------------------------------------------------------------------------------

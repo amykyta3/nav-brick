@@ -50,6 +50,9 @@ static void clk_init(void){
 
     // Disable peripheral clock division for CLK_PER
     ccp_write_io((void*)&CLKCTRL.MCLKCTRLB, 0);
+
+    // Force internal 32k osc on
+    ccp_write_io((void*)&CLKCTRL.OSC32KCTRLA, CLKCTRL_RUNSTDBY_bm);
 }
 
 void sys_init(void){
