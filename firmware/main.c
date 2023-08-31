@@ -33,7 +33,7 @@ int main(void) {
     // Start display update timer
     timer_t timer;
     struct timerctl timer_settings;
-    timer_settings.interval = RTC_CNT_FREQ;
+    timer_settings.interval = RTC_CNT_FREQ / 2;
     timer_settings.repeat = true;
     timer_settings.callback = update_display_callback;
     timer_settings.callback_data = NULL;

@@ -7,17 +7,8 @@
 
 #include "rtc_config.h"
 
-#if(RTC_CLKSEL_gc == RTC_CLKSEL_OSC1K_gc)
-    #define RTC_CLK_FREQ 1024UL
-#elif(RTC_CLKSEL_gc == RTC_CLKSEL_OSC32K_gc)
-    #define RTC_CLK_FREQ 32768UL
-#elif(RTC_CLKSEL_gc == RTC_CLKSEL_XOSC32K_gc)
-    #define RTC_CLK_FREQ 32768UL
-#else
-    #error "Invalid RTC_CLKSEL_gc"
-#endif
-
-#define RTC_PRESCALE_SHIFT (RTC_PRESCALER_gc >> RTC_PRESCALER_0_bp)
+#define RTC_CLK_FREQ ((RTC_CLKSEL_gc == RTC_CLKSEL_OSC1K_gc) ? 1024UL : 32768UL)
+#define RTC_PRESCALE_SHIFT (RTC_PRESCALER_gc >> RTC_PRESCALER_gp)
 #define RTC_CNT_FREQ    (RTC_CLK_FREQ >> RTC_PRESCALE_SHIFT)
 
 //==============================================================================

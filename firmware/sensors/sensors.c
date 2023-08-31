@@ -6,8 +6,8 @@
 #include "../utils/event_queue.h"
 #include "../slate.h"
 
-#define POLL_HZ 10
-#define PX_AVERAGE 8
+#define POLL_HZ 16
+#define PX_AVERAGE 16
 
 // Shared I2C device for all sensors
 i2c_dev_t sensors_i2c_dev;

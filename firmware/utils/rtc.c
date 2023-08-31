@@ -476,6 +476,7 @@ static void update_COMP(){
             }else{
                 new_comp -= 1;
             }
+            while(RTC.STATUS & RTC_CMPBUSY_bm);
             RTC.CMP = new_comp;
 
         }else{
