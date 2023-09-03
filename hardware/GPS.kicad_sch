@@ -323,6 +323,7 @@
     (uuid d1e81d4d-f923-4d1c-9319-a43e67d1580d)
   )
 
+  (no_connect (at 109.22 82.55) (uuid b953418e-155d-4826-8c10-e35ff784cbcc))
   (no_connect (at 109.22 80.01) (uuid d6fe237b-67d6-4ca1-b5d6-894487d9e1a1))
   (no_connect (at 109.22 77.47) (uuid f1fe438e-0f4f-46d4-8609-71bda05a2895))
 
@@ -341,10 +342,6 @@
   (wire (pts (xy 124.46 63.5) (xy 121.92 63.5))
     (stroke (width 0) (type default))
     (uuid 222b9606-ec3a-4784-bcd7-e61a64c1c3bc)
-  )
-  (wire (pts (xy 96.52 82.55) (xy 109.22 82.55))
-    (stroke (width 0) (type default))
-    (uuid 27aef831-ac51-4d54-9495-19d18119ae72)
   )
   (wire (pts (xy 144.78 62.23) (xy 144.78 60.96))
     (stroke (width 0) (type default))
@@ -414,10 +411,6 @@
   (hierarchical_label "TXD" (shape output) (at 153.67 74.93 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 714a44e1-0bec-4869-ae1c-7e6636e68b83)
-  )
-  (hierarchical_label "RST_N" (shape input) (at 96.52 82.55 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
-    (uuid 7b214067-1955-4df0-ad46-f2ed3c382553)
   )
 
   (symbol (lib_id "0-ic-digital:SAM-M10Q") (at 121.92 77.47 0) (unit 1)
