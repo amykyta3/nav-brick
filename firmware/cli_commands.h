@@ -23,8 +23,8 @@
                     {"dr"    , cmd_DisplayRight  },\
                     {"db"    , cmd_SetLightness},\
                     {"dp"    , cmd_SetLightness},\
-                    {"alt"   , cmd_Altitude},\
-                    {"R"     , cmd_RTC_State},\
+                    {"fr"    , cmd_FRAM_Read},\
+                    {"fw"    , cmd_FRAM_Write},\
                     {"s"     , cmd_DumpSlate}
 
 
@@ -33,8 +33,8 @@ int cmd_ArgList(uint8_t argc, char *argv[]);
 int cmd_DisplayLeft(uint8_t argc, char *argv[]);
 int cmd_DisplayRight(uint8_t argc, char *argv[]);
 int cmd_SetLightness(uint8_t argc, char *argv[]);
-int cmd_Altitude(uint8_t argc, char *argv[]);
 int cmd_DumpSlate(uint8_t argc, char *argv[]);
-int cmd_RTC_State(uint8_t argc, char *argv[]);
+int cmd_FRAM_Read(uint8_t argc, char *argv[]);
+int cmd_FRAM_Write(uint8_t argc, char *argv[]);
 
 #endif

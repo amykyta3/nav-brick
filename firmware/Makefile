@@ -8,13 +8,17 @@ OBJCOPY:=avr-objcopy
 OBJDUMP:=avr-objdump
 
 PROJECT_NAME:=application
+EXECUTABLE= $(PROJECT_NAME).elf
 
 MCU=avr128da32
 INCLUDES= $(AVR_DX_DFP)/include
 CFLAGS:= -Os -Wall -std=gnu11 -ffunction-sections -fdata-sections -g
 CFLAGS+= -funsigned-char -funsigned-bitfields -fpack-struct
-LDFLAGS= -Wl,--gc-sections -g -Wl,-Map=$(EXECUTABLE).map
-EXECUTABLE= $(PROJECT_NAME).elf
+
+LDFLAGS:= -Wl,--gc-sections -g -Wl,-Map=$(EXECUTABLE).map
+# Enable floating-point printf
+LDFLAGS+= -Wl,-u,vfprintf -lprintf_flt -lm
+
 
 SRC:= main.c
 SRC+= sys.c
@@ -27,18 +31,18 @@ SRC+= utils/uart.c
 SRC+= utils/fifo.c
 SRC+= utils/event_queue.c
 SRC+= utils/cli.c
-SRC+= utils/string_ext.c
 SRC+= utils/i2c.c
 SRC+= utils/rtc.c
 SRC+= sensors/sensors.c
 SRC+= sensors/ms5611_pressure.c
 SRC+= sensors/ltr-329als_light.c
 SRC+= cli_commands.c
-SRC+= calculations.c
+SRC+= altitude.c
 SRC+= usb_uart.c
 SRC+= gps/gps_uart.c
 SRC+= gps/gps.c
 SRC+= gps/ubx.c
+SRC+= fram.c
 
 ################################################################################
 

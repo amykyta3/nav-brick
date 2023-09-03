@@ -28,5 +28,6 @@ void display_update_str(char *str, text_align_t align);
 void display_set_lightness(uint8_t *values);
 void display_set_lightness_all(uint8_t value);
 void display_set_pwm_raw(uint8_t *values);
+void display_set_pwm_raw_all(uint8_t value);
 
 #endif

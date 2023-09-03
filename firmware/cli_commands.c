@@ -4,47 +4,31 @@
 
 #include "cli_commands.h"
 #include "display/display.h"
-#include "sensors/ms5611_pressure.h"
-#include "sensors/ltr-329als_light.h"
 #include "slate.h"
-#include "calculations.h"
+#include "fram.h"
 
 
 //==============================================================================
 // Device-specific output functions
 //==============================================================================
-#include "usb_uart.h"
-
-#define cli_put_x8(num) uart_put_x8(&usb_uart_dev, num)
-#define cli_put_x16(num) uart_put_x16(&usb_uart_dev, num)
-#define cli_put_x32(num) uart_put_x32(&usb_uart_dev, num)
-#define cli_put_d8(num) uart_put_d8(&usb_uart_dev, num)
-#define cli_put_d16(num) uart_put_d16(&usb_uart_dev, num)
-#define cli_put_d32(num) uart_put_d32(&usb_uart_dev, num)
-#define cli_put_sd8(num) uart_put_sd8(&usb_uart_dev, num)
-#define cli_put_sd16(num) uart_put_sd16(&usb_uart_dev, num)
-#define cli_put_sd32(num) uart_put_sd32(&usb_uart_dev, num)
-
 void cli_puts(char *str){
-    uart_puts(&usb_uart_dev, str);
+    fputs(str, stdout);
 }
 
 void cli_putc(char chr){
-    uart_putc(&usb_uart_dev, chr);
+    putchar(chr);
 }
 
 void cli_print_prompt(void){
-    cli_puts(">");
+    putchar('>');
 }
 
 void cli_print_error(int error){
-    cli_puts("Returned with error code ");
-    cli_put_x32(error);
-    cli_puts("\r\n");
+    printf("Returned with error code %x\n", error);
 }
 
 void cli_print_notfound(char *strcmd){
-    cli_puts("Command not found\r\n");
+    fputs("Command not found\n", stdout);
 }
 
 //==============================================================================
@@ -113,58 +97,45 @@ int cmd_SetLightness(uint8_t argc, char *argv[]){
 }
 
 int cmd_DumpSlate(uint8_t argc, char *argv[]){
-    cli_puts("gps.altitude: ");
-    cli_put_sd32(Slate.gps.altitude);
-    cli_puts(" +/- ");
-    cli_put_d32(Slate.gps.altitude_accuracy);
+    printf("gps.altitude: %ld +/- %lu\n", Slate.gps.altitude, Slate.gps.altitude_accuracy);
+    printf("gps.speed: %lu +/- %lu\n", Slate.gps.speed, Slate.gps.speed_accuracy);
+    printf("gps.heading: %ld +/- %lu\n", Slate.gps.heading, Slate.gps.heading_accuracy);
 
-    cli_puts("\r\ngps.speed: ");
-    cli_put_d32(Slate.gps.speed);
-    cli_puts(" +/- ");
-    cli_put_d32(Slate.gps.speed_accuracy);
+    printf("light.vis: %u\n", Slate.light.vis);
+    printf("light.ir: %u\n", Slate.light.ir);
 
-    cli_puts("\r\ngps.heading: ");
-    cli_put_sd32(Slate.gps.heading);
-    cli_puts(" +/- ");
-    cli_put_d32(Slate.gps.heading_accuracy);
+    printf("temperature: %ld\n", Slate.temperature);
+    printf("pressure: %ld\n", Slate.pressure);
 
-    cli_puts("\r\nlight.vis: ");
-    cli_put_d16(Slate.light.vis);
-    cli_puts("\r\nlight.ir: ");
-    cli_put_d16(Slate.light.ir);
+    printf("sensor_poll_duration: %u\n", Slate.sensor_poll_duration);
 
-    cli_puts("\r\ntemperature: ");
-    cli_put_d32(Slate.temperature);
-
-    cli_puts("\r\npressure: ");
-    cli_put_d32(Slate.pressure);
-
-    cli_puts("\r\npoll_duration: ");
-    cli_put_d16(Slate.poll_duration);
-
-    cli_puts("\r\n");
+    printf("current_alt: %.2f\n", Slate.current_altitude);
+    printf("alt_trim: %.2f\n", Slate.altitude_trim);
 
     return 0;
 }
 
-int cmd_Altitude(uint8_t argc, char *argv[]){
-    double alt;
 
-    alt = get_px_altitude();
-    alt *= 10;
+int cmd_FRAM_Read(uint8_t argc, char *argv[]){
+    if(argc != 2) return 1;
 
-    cli_puts("altitude: ");
-    cli_put_sd32(alt);
-    cli_puts(" mm\r\n");
+    uint16_t addr;
+    uint8_t value;
+    sscanf(argv[1], "%x", &addr);
 
+    fram_read(addr, &value, 1);
+    printf("%02x\n", value);
     return 0;
 }
 
-int cmd_RTC_State(uint8_t argc, char *argv[]){
-    cli_puts("CNT: ");
-    cli_put_d16(RTC.CNT);
-    cli_puts(", CMP: ");
-    cli_put_d16(RTC.CMP);
-    cli_puts("\r\n");
+int cmd_FRAM_Write(uint8_t argc, char *argv[]){
+    if(argc != 3) return 1;
+
+    uint16_t addr;
+    uint8_t value;
+    sscanf(argv[1], "%x", &addr);
+    sscanf(argv[2], "%hhx", &value);
+
+    fram_write(addr, &value, 1);
     return 0;
 }

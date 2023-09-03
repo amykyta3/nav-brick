@@ -6,7 +6,6 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 
-#include "string_ext.h"
 #include "uart.h"
 
 // mapping of USART io devs --> uart_dev_t objects
@@ -126,58 +125,4 @@ void uart_putc(uart_dev_t *dev, const char c){
 
 void uart_puts(uart_dev_t *dev, const char *s){
     uart_write(dev, (uint8_t*)s, strlen(s));
-}
-
-void uart_put_x8(uart_dev_t *dev, uint8_t num){
-    char buf[3];
-    snprint_x8(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_x16(uart_dev_t *dev, uint16_t num){
-    char buf[5];
-    snprint_x16(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_x32(uart_dev_t *dev, uint32_t num){
-    char buf[9];
-    snprint_x32(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_d8(uart_dev_t *dev, uint8_t num){
-    char buf[4];
-    snprint_d8(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_d16(uart_dev_t *dev, uint16_t num){
-    char buf[6];
-    snprint_d16(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_d32(uart_dev_t *dev, uint32_t num){
-    char buf[11];
-    snprint_d32(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_sd8(uart_dev_t *dev, int8_t num){
-    char buf[5];
-    snprint_sd8(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_sd16(uart_dev_t *dev, int16_t num){
-    char buf[7];
-    snprint_sd16(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
-}
-
-void uart_put_sd32(uart_dev_t *dev, int32_t num){
-    char buf[12];
-    snprint_sd32(buf, sizeof(buf), num);
-    uart_puts(dev, buf);
 }

@@ -141,3 +141,9 @@ void display_set_pwm_raw(uint8_t *values){
     TCD0.CMPASETL = 127 - (values[7] >> 1);
     TCD0.CTRLE = TCD_SYNCEOC_bm;
 }
+
+void display_set_pwm_raw_all(uint8_t value) {
+    uint8_t values[8];
+    for(uint8_t i=0; i<8; i++) values[i] = value;
+    display_set_pwm_raw(values);
+}

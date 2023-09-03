@@ -8,6 +8,7 @@
 
 #define POLL_HZ 16
 #define PX_AVERAGE 16
+#define LIGHT_AVERAGE 32
 
 // Shared I2C device for all sensors
 i2c_dev_t sensors_i2c_dev;
@@ -15,26 +16,63 @@ i2c_dev_t sensors_i2c_dev;
 // Polling loop timer object
 static timer_t sensor_timer;
 
-static void polling_event(void){
-    static int32_t px_buffer[PX_AVERAGE];
-    static uint8_t px_idx;
+static void sample_light(void){
+    static uint16_t buffer[LIGHT_AVERAGE];
+    static uint8_t idx;
+    static bool buffer_ok = false;
 
-    uint16_t start;
-    start = RTC.CNT;
-    als_get_sample(&Slate.light.vis, &Slate.light.ir);
+    als_get_sample(&buffer[idx], &Slate.light.ir);
 
-    px_sensor_get_sample(&Slate.temperature, &px_buffer[px_idx++]);
-    if(px_idx >= PX_AVERAGE) {
-        px_idx = 0;
+    if(buffer_ok){
+        // moving average
+        uint32_t sum;
+        sum = 0;
+        for(uint8_t i=0; i<LIGHT_AVERAGE; i++) sum += buffer[i];
+        Slate.light.vis = sum / LIGHT_AVERAGE;
+    } else {
+        Slate.light.vis = buffer[idx];
     }
 
-    // moving average of px
-    int32_t px_sum;
-    px_sum = 0;
-    for(uint8_t i=0; i<PX_AVERAGE; i++) px_sum += px_buffer[i];
-    Slate.pressure = px_sum / PX_AVERAGE;
+    idx++;
+    if(idx >= LIGHT_AVERAGE) {
+        idx = 0;
+        buffer_ok = true;
+    }
+}
 
-    Slate.poll_duration = RTC.CNT - start;
+static void sample_px(void){
+    static int32_t buffer[PX_AVERAGE];
+    static uint8_t idx;
+    static bool buffer_ok = false;
+
+    px_sensor_get_sample(&Slate.temperature, &buffer[idx]);
+
+    if(buffer_ok){
+        // moving average
+        int32_t sum;
+        sum = 0;
+        for(uint8_t i=0; i<PX_AVERAGE; i++) sum += buffer[i];
+        Slate.pressure = sum / PX_AVERAGE;
+    } else {
+        Slate.pressure = buffer[idx];
+    }
+
+    idx++;
+    if(idx >= PX_AVERAGE) {
+        idx = 0;
+        buffer_ok = true;
+    }
+}
+
+
+static void polling_event(void){
+    uint16_t start;
+    start = RTC.CNT;
+
+    sample_light();
+    sample_px();
+
+    Slate.sensor_poll_duration = RTC.CNT - start;
 }
 
 static void timer_callback(void* d){

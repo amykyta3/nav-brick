@@ -38,8 +38,11 @@
 
 // Devices
 #define USB_USART   USART0
+
 #define SENSOR_I2C  TWI0
-#define FRAM_SPI    SPI0
+
+#define FRAM_SPI            SPI0
+#define FRAM_SPI_INT_vect   SPI0_INT_vect
 
 #define LED_SPI             SPI1
 #define LED_SPI_INT_vect    SPI1_INT_vect

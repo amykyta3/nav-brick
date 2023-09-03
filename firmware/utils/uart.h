@@ -63,16 +63,6 @@ void uart_putc(uart_dev_t *dev, const char c);
 **/
 void uart_puts(uart_dev_t *dev, const char *s);
 
-void uart_put_x8(uart_dev_t *dev, uint8_t num);
-void uart_put_x16(uart_dev_t *dev, uint16_t num);
-void uart_put_x32(uart_dev_t *dev, uint32_t num);
-void uart_put_d8(uart_dev_t *dev, uint8_t num);
-void uart_put_d16(uart_dev_t *dev, uint16_t num);
-void uart_put_d32(uart_dev_t *dev, uint32_t num);
-void uart_put_sd8(uart_dev_t *dev, int8_t num);
-void uart_put_sd16(uart_dev_t *dev, int16_t num);
-void uart_put_sd32(uart_dev_t *dev, int32_t num);
-
 #define UART_BAUD(bitrate) ((64UL * CLK_PER_FREQ) / (16UL * (bitrate)))
 
 #endif

@@ -167,7 +167,7 @@ void cli_process_char(char inchar){
     if(inchar == '\r'){ // recvd return
         // Process Command
         strin[stridx] = 0; // null terminate
-        cli_puts("\r\n");
+        cli_putc('\n');
 
         if(stridx != 0){
 

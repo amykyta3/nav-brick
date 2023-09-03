@@ -255,6 +255,11 @@ static void process_VELNED_frame(ubx_frame_t *f){
 void ubx_init(void){
     ubx_frame_t f;
 
+    // Initialize GPS accuracies to be "bad"
+    Slate.gps.altitude_accuracy = 3750000128;
+    Slate.gps.speed_accuracy = 2000;
+    Slate.gps.heading_accuracy = 18000000;
+
     // Disable all NMEA messages
     f.len = 0;
     push_U1(&f, 0x06); // class
