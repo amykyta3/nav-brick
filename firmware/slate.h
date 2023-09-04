@@ -4,8 +4,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct {
+#define NV_SLATE_VERSION    3
 
+typedef struct {
+    float prev_session_altitude;
+} nonvolatile_slate_t;
+
+typedef struct {
+    nonvolatile_slate_t nv;
+    bool prev_session_valid;
     //--------------------------------------------------------------------------
     // GPS
     //--------------------------------------------------------------------------
@@ -34,11 +41,11 @@ typedef struct {
     //--------------------------------------------------------------------------
     float current_altitude; // meters
     float altitude_trim; // meters
-
 } slate_t;
 
 extern slate_t Slate;
 
 void slate_init(void);
+void slate_save_nv(void);
 
 #endif

@@ -120,11 +120,11 @@ int cmd_FRAM_Read(uint8_t argc, char *argv[]){
     if(argc != 2) return 1;
 
     uint16_t addr;
-    uint8_t value;
+    uint32_t value;
     sscanf(argv[1], "%x", &addr);
 
-    fram_read(addr, &value, 1);
-    printf("%02x\n", value);
+    fram_read(addr, &value, sizeof(value));
+    printf("%lx\n", value);
     return 0;
 }
 
@@ -132,10 +132,10 @@ int cmd_FRAM_Write(uint8_t argc, char *argv[]){
     if(argc != 3) return 1;
 
     uint16_t addr;
-    uint8_t value;
+    uint32_t value;
     sscanf(argv[1], "%x", &addr);
-    sscanf(argv[2], "%hhx", &value);
+    sscanf(argv[2], "%lx", &value);
 
-    fram_write(addr, &value, 1);
+    fram_write(addr, &value, sizeof(value));
     return 0;
 }

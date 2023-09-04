@@ -16,10 +16,21 @@ float get_px_altitude(void){
 }
 
 void update_altitude(void){
+    static bool first = true;
+
     float altitude;
 
     // Start with altitude derived from pressure sensor
     altitude = get_px_altitude();
+
+    if(first) {
+        first = false;
+        if(Slate.prev_session_valid) {
+            // Assume prior session altitude is the same as current.
+            // Shortcut trim
+            Slate.altitude_trim = Slate.nv.prev_session_altitude - altitude;
+        }
+    }
 
     // Trim it with current correction factor
     altitude += Slate.altitude_trim;

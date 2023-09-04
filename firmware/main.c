@@ -32,12 +32,12 @@ int main(void) {
 
     sei(); // Enable interrupts
 
-    slate_init();
-    event_init();
+    usb_uart_init();
     display_init();
     fram_init();
     sensors_init();
-    usb_uart_init();
+    slate_init();
+    event_init();
     gps_init();
     button_init();
 
@@ -72,12 +72,10 @@ static void update_display(void){
     update_altitude();
 
     char str[16];
-
     snprintf(str, sizeof(str), "%.1f M", Slate.current_altitude);
-
     display_update_str(str, ALIGN_RIGHT);
 
-
+    slate_save_nv();
 }
 
 static void update_brightness(void){
