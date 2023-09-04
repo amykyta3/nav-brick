@@ -16,6 +16,7 @@
 #include "altitude.h"
 #include "slate.h"
 #include "fram.h"
+#include "utils/button.h"
 #include "utils/event_queue.h"
 
 static void update_display(void);
@@ -38,6 +39,7 @@ int main(void) {
     sensors_init();
     usb_uart_init();
     gps_init();
+    button_init();
 
     struct timerctl timer_settings;
     timer_t content_timer;
@@ -88,4 +90,13 @@ static void update_brightness(void){
         brightness = 4;
     }
     display_set_pwm_raw_all(brightness);
+}
+
+
+
+void onButtonDown(uint8_t flags){
+    printf("PB down: %02x\n", flags);
+}
+void onButtonUp(uint8_t flags){
+    printf("PB up: %02x\n", flags);
 }

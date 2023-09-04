@@ -8,7 +8,7 @@
 
 #define POLL_HZ 16
 #define PX_AVERAGE 16
-#define LIGHT_AVERAGE 32
+#define LIGHT_AVERAGE 16
 
 // Shared I2C device for all sensors
 i2c_dev_t sensors_i2c_dev;

@@ -610,6 +610,7 @@ void timer_stop(timer_t *timerid){
                 // found match
                 if(t_prev){
                     t_prev->next = t_current->next;
+                    // FIXME: if canceling a timer, all others need tobe updated too
                 }else{
                     // t_current is Timer_first
                     Timer_first = Timer_first->next;

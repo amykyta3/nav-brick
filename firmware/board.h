@@ -49,4 +49,8 @@
 
 #define GPS_USART   USART2
 
+#define BUTTON_PORT             PORTD
+#define BUTTON_PORT_INT_vect    PORTD_PORT_vect
+#define BUTTON_MASK             (P_BUTTON1 | P_BUTTON2)
+
 #endif

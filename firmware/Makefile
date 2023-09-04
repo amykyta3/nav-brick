@@ -33,6 +33,7 @@ SRC+= utils/event_queue.c
 SRC+= utils/cli.c
 SRC+= utils/i2c.c
 SRC+= utils/rtc.c
+SRC+= utils/button.c
 SRC+= sensors/sensors.c
 SRC+= sensors/ms5611_pressure.c
 SRC+= sensors/ltr-329als_light.c
@@ -59,6 +60,10 @@ ping:
 
 program: $(EXECUTABLE).hex
 	pymcuprog write --device $(MCU) --tool uart --uart /dev/ttyACM1 -f $< --erase --verify
+
+.PHONY: connect
+connect:
+	minicom -D /dev/ttyACM0
 
 ################################# AVR Compile ##################################
 
