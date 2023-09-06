@@ -4,9 +4,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define NV_SLATE_VERSION    3
+#include "gui.h"
+
+#define NV_SLATE_VERSION    0
 
 typedef struct {
+    gui_state_t gui_state;
     float prev_session_altitude;
 } nonvolatile_slate_t;
 
@@ -45,7 +48,24 @@ typedef struct {
 
 extern slate_t Slate;
 
+//------------------------------------------------------------------------------
 void slate_init(void);
 void slate_save_nv(void);
+
+
+
+typedef struct {
+    uint8_t version;
+    uint16_t seq_num;
+    nonvolatile_slate_t data;
+} entry_payload_t;
+
+typedef struct {
+    entry_payload_t payload;
+    uint32_t crc;
+} fram_entry_t;
+
+void slate_write_nv(fram_entry_t *entry, uint16_t addr);
+bool slate_read_nv(fram_entry_t *entry, uint16_t addr);
 
 #endif

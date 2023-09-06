@@ -20,6 +20,9 @@
 #define _DP (1<<1)
 
 
+// Useful tool for visualizing:
+// https://www.geocachingtoolbox.com/index.php?lang=en&page=segmentDisplay
+
 static const uint16_t ALPHAS[26] = {
     _A | _B | _C | _E | _F | _N | _J,   // A
     _A | _B | _C | _D | _J | _G | _L,   // B
@@ -67,16 +70,22 @@ static uint16_t code_from_ascii(char c){
     if(c == '.') return _DP;
     if(c == ' ') return 0;
     if(c >= 'A' && c <= 'Z') return ALPHAS[c - 'A'];
+    if(c == 'c') return (_N | _J | _E | _D);
+    if(c == 'h') return (_E | _F | _N | _L);
+    if(c == 'm') return (_E | _N | _L | _J | _C);
+    if(c == 'n') return (_E | _N | _L);
+    if(c == 'r') return (_E | _N);
+    if(c == 'w') return (_C | _D | _E | _L);
     if(c >= 'a' && c <= 'z') return ALPHAS[c - 'a'];
-    if(c == '+') return (_G | _J | _L | _N);
     if(c == '-') return (_J | _N);
+    if(c == '+') return (_G | _J | _L | _N);
     if(c == '/') return (_H | _M);
     if(c == '\\') return (_P | _K);
     if(c == '_') return _D;
-    if(c == '*') return (_F | _A | _B | _N | _J);
+    if(c == '*') return (_N | _J | _P | _G | _H | _K | _L | _M);
 
-    // If invalid, light up everything except DP
-    return (_A | _B | _C | _D | _E | _F | _G | _H | _J | _K | _L | _M | _N | _P);
+    // If invalid, show "[X]"
+    return (_A | _B | _C | _D | _E | _F | _P | _H | _K | _M);
 }
 
 void display_data_from_str(uint16_t *data, const char *str, text_align_t align){

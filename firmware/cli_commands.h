@@ -19,22 +19,14 @@
 // Table of commands: {"command_word" , function }
 // If using binary search, command words MUST be in alphabetical (ascii) order (A-Z then a-z)
 #define CMDTABLE    {"args"  , cmd_ArgList  },\
-                    {"dl"    , cmd_DisplayLeft  },\
-                    {"dr"    , cmd_DisplayRight  },\
                     {"db"    , cmd_SetLightness},\
                     {"dp"    , cmd_SetLightness},\
-                    {"fr"    , cmd_FRAM_Read},\
-                    {"fw"    , cmd_FRAM_Write},\
                     {"s"     , cmd_DumpSlate}
 
 
 // Custom command function prototypes:
 int cmd_ArgList(uint8_t argc, char *argv[]);
-int cmd_DisplayLeft(uint8_t argc, char *argv[]);
-int cmd_DisplayRight(uint8_t argc, char *argv[]);
 int cmd_SetLightness(uint8_t argc, char *argv[]);
 int cmd_DumpSlate(uint8_t argc, char *argv[]);
-int cmd_FRAM_Read(uint8_t argc, char *argv[]);
-int cmd_FRAM_Write(uint8_t argc, char *argv[]);
 
 #endif

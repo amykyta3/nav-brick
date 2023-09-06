@@ -18,6 +18,7 @@
 #include "fram.h"
 #include "utils/button.h"
 #include "utils/event_queue.h"
+#include "gui.h"
 
 static void update_display(void);
 static void update_brightness(void);
@@ -70,17 +71,12 @@ void onIdle(void){
 
 static void update_display(void){
     update_altitude();
-
-    char str[16];
-    snprintf(str, sizeof(str), "%.1f M", Slate.current_altitude);
-    display_update_str(str, ALIGN_RIGHT);
-
+    gui_refresh_display();
     slate_save_nv();
 }
 
 static void update_brightness(void){
     float brightness;
-    //brightness = powf(Slate.light.vis, 0.45) * 6.75;
     brightness = sqrtf(Slate.light.vis) * 6.75;
     if(brightness > 255){
         brightness = 255;
@@ -90,11 +86,15 @@ static void update_brightness(void){
     display_set_pwm_raw_all(brightness);
 }
 
-
-
 void onButtonDown(uint8_t flags){
-    printf("PB down: %02x\n", flags);
+    if(flags & P_BUTTON1) {
+        gui_next_page();
+    }
+
+    if(flags & P_BUTTON2) {
+        gui_next_page_mode();
+    }
 }
+
 void onButtonUp(uint8_t flags){
-    printf("PB up: %02x\n", flags);
 }

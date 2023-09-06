@@ -5,16 +5,9 @@
 
 slate_t Slate;
 
-typedef struct {
-    struct {
-        uint8_t version;
-        uint16_t seq_num;
-        nonvolatile_slate_t data;
-    } payload;
-    uint32_t crc;
-} fram_entry_t;
 
-#define FRAM_ENTRY_SPACING  0x10
+
+#define FRAM_ENTRY_SPACING  0x20
 _Static_assert(sizeof(fram_entry_t) <= FRAM_ENTRY_SPACING, "FRAM_ENTRY_SPACING is too small");
 
 #define MAX_ENTRIES (FRAM_SIZE / FRAM_ENTRY_SPACING)
@@ -47,6 +40,24 @@ static uint32_t crc32(void *data, uint8_t size) {
     return ~crc;
 }
 
+void slate_write_nv(fram_entry_t *entry, uint16_t addr){
+    entry->crc = crc32(&entry->payload, sizeof(entry_payload_t));
+    fram_write(addr, entry, sizeof(fram_entry_t));
+}
+
+bool slate_read_nv(fram_entry_t *entry, uint16_t addr){
+    fram_read(addr, entry, sizeof(fram_entry_t));
+
+    // Chec if version OK
+    if(entry->payload.version != NV_SLATE_VERSION) return false;
+
+    // Check CRC
+    uint32_t crc;
+    crc = crc32(&entry->payload, sizeof(entry_payload_t));
+    if(crc != entry->crc) return false;
+
+    return true;
+}
 
 void slate_save_nv(void){
     fram_entry_t entry;
@@ -57,14 +68,13 @@ void slate_save_nv(void){
     entry.payload.seq_num = current_seq_num;
 
     // Pull data from slate to be saved
+    memcpy(&entry.payload.data, &Slate.nv, sizeof(nonvolatile_slate_t));
     entry.payload.data.prev_session_altitude = Slate.current_altitude;
-
-    entry.crc = crc32(&entry.payload, sizeof(entry.payload));
 
     // Save to FRAM
     uint16_t addr;
-    addr = (entry.payload.seq_num * FRAM_ENTRY_SPACING) & (FRAM_SIZE-1);
-    fram_write(addr, &entry, sizeof(entry));
+    addr = (current_seq_num * FRAM_ENTRY_SPACING) & (FRAM_SIZE-1);
+    slate_write_nv(&entry, addr);
 }
 
 
@@ -75,14 +85,10 @@ static void load_nv(void){
     for(int i=0; i<MAX_ENTRIES; i++){
         uint16_t addr;
         addr = (i * FRAM_ENTRY_SPACING) & (FRAM_SIZE-1);
-        fram_read(addr, &entry, sizeof(entry));
 
-        // Check if entry is bad
-        if(entry.payload.version != NV_SLATE_VERSION) continue;
-        uint32_t crc;
-        crc = crc32(&entry.payload, sizeof(entry.payload));
-        if(entry.crc != crc) continue;
-
+        bool result;
+        result = slate_read_nv(&entry, addr);
+        if(!result) continue;
 
         if(entry.payload.seq_num > current_seq_num) {
             // Found a newer entry. Save it

@@ -46,19 +46,6 @@ int cmd_ArgList(uint8_t argc, char *argv[]){
     return 0;
 }
 
-int cmd_DisplayLeft(uint8_t argc, char *argv[]){
-    if(argc != 2) return 1;
-    display_update_str(argv[1], ALIGN_LEFT);
-    return 0;
-}
-
-int cmd_DisplayRight(uint8_t argc, char *argv[]){
-    if(argc != 2) return 1;
-    display_update_str(argv[1], ALIGN_RIGHT);
-    return 0;
-}
-
-
 static uint8_t lightness_values[8] = {
     255,
     255,
@@ -112,30 +99,10 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("current_alt: %.2f\n", Slate.current_altitude);
     printf("alt_trim: %.2f\n", Slate.altitude_trim);
 
-    return 0;
-}
+    printf("gui_state.page: %d\n", Slate.nv.gui_state.page);
+    printf("gui_state.altitude_mode: %d\n", Slate.nv.gui_state.altitude_mode);
+    printf("gui_state.speed_mode: %d\n", Slate.nv.gui_state.speed_mode);
+    printf("gui_state.pressure_mode: %d\n", Slate.nv.gui_state.pressure_mode);
 
-
-int cmd_FRAM_Read(uint8_t argc, char *argv[]){
-    if(argc != 2) return 1;
-
-    uint16_t addr;
-    uint32_t value;
-    sscanf(argv[1], "%x", &addr);
-
-    fram_read(addr, &value, sizeof(value));
-    printf("%lx\n", value);
-    return 0;
-}
-
-int cmd_FRAM_Write(uint8_t argc, char *argv[]){
-    if(argc != 3) return 1;
-
-    uint16_t addr;
-    uint32_t value;
-    sscanf(argv[1], "%x", &addr);
-    sscanf(argv[2], "%lx", &value);
-
-    fram_write(addr, &value, sizeof(value));
     return 0;
 }
