@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "slate.h"
 #include "display/display.h"
@@ -83,16 +84,32 @@ static void get_altitude_str(char *str){
         }
     }
 
+    if(Slate.gps.altitude_accuracy > (50U*1000U)){
+        // No GPS signal.
+        // Indicate with a dot
+        strcat(str, ".");
+    }
+
 }
 
+
+#define MIN_SPEED_ACCURACY_CMPS 750
 static void get_speed_str(char *str){
     switch(Slate.nv.gui_state.speed_mode){
         case KPH: {
-            snprintf(str, STRBUF_SIZE, "%.1f KPH", (Slate.gps.speed * 0.036));
+            if(Slate.gps.speed_accuracy < MIN_SPEED_ACCURACY_CMPS) {
+                snprintf(str, STRBUF_SIZE, "%.1f KPH", (Slate.gps.speed * 0.036));
+            } else {
+                snprintf(str, STRBUF_SIZE, "---- KPH");
+            }
             break;
         }
         case MPH: {
-            snprintf(str, STRBUF_SIZE, "%.1f MPH", (Slate.gps.speed * 0.022369363));
+            if(Slate.gps.speed_accuracy < MIN_SPEED_ACCURACY_CMPS) {
+                snprintf(str, STRBUF_SIZE, "%.1f MPH", (Slate.gps.speed * 0.022369363));
+            } else {
+                snprintf(str, STRBUF_SIZE, "---- MPH");
+            }
             break;
         }
     }

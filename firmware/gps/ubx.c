@@ -111,15 +111,23 @@ void ubx_process_char(uint8_t c){
 
     switch (state){
         case PS_PRE1: {
-            if(c == 0xb5) state = PS_PRE2;
-            else state = PS_PRE1;
+            if(c == 0xb5) {
+                state = PS_PRE2;
+            } else {
+                Slate.gps.bad_frame_count++;
+                state = PS_PRE1;
+            }
             break;
         }
 
         case PS_PRE2: {
             f.len = 0;
-            if(c == 0x62) state = PS_CLASS;
-            else state = PS_PRE1;
+            if(c == 0x62) {
+                state = PS_CLASS;
+            } else {
+                Slate.gps.bad_frame_count++;
+                state = PS_PRE1;
+            }
             break;
         }
 
@@ -169,7 +177,10 @@ void ubx_process_char(uint8_t c){
                 // Frame is good!
                 // reset position and process it
                 f.pos = 0;
+                Slate.gps.good_frame_count++;
                 process_frame(&f);
+            } else {
+                Slate.gps.bad_frame_count++;
             }
             state = PS_PRE1;
             break;

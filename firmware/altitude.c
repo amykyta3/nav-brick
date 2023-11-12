@@ -29,6 +29,8 @@ void update_altitude(void){
             // Assume prior session altitude is the same as current.
             // Shortcut trim
             Slate.altitude_trim = Slate.nv.prev_session_altitude - altitude;
+
+            if(isnan(Slate.altitude_trim)) Slate.altitude_trim = 0;
         }
     }
 

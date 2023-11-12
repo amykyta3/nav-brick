@@ -87,6 +87,8 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("gps.altitude: %ld +/- %lu\n", Slate.gps.altitude, Slate.gps.altitude_accuracy);
     printf("gps.speed: %lu +/- %lu\n", Slate.gps.speed, Slate.gps.speed_accuracy);
     printf("gps.heading: %ld +/- %lu\n", Slate.gps.heading, Slate.gps.heading_accuracy);
+    printf("gps.good_frame_count: %d\n", Slate.gps.good_frame_count);
+    printf("gps.bad_frame_count: %d\n", Slate.gps.bad_frame_count);
 
     printf("light.vis: %u\n", Slate.light.vis);
     printf("light.ir: %u\n", Slate.light.ir);
