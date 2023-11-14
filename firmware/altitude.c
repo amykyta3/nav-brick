@@ -8,7 +8,7 @@ float get_px_altitude(void){
     // Assuming T_b = 15C
     float x;
 
-    x = Slate.pressure;
+    x = Slate.alt.pressure;
     x /= 101325.0;
     x = 1.0 - powf(x, 1.0 / 5.225787741);
     x *= 44330.77;

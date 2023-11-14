@@ -162,8 +162,8 @@ void px_sensor_get_sample(int32_t *temperature, int32_t *pressure){
     }
 
     // Calculate pressure
-    int64_t OFF = ((uint64_t)C2 << 16) + (((uint64_t)C4 * dT) >> 7) - OFF2;
-    int64_t SENS = ((uint64_t)C1 << 15) + (((uint64_t)C3 * dT) >> 8) - SENS2;
+    int64_t OFF = ((uint64_t)C2 << 16) + (((int64_t)C4 * dT) >> 7) - OFF2;
+    int64_t SENS = ((uint64_t)C1 << 15) + (((int64_t)C3 * dT) >> 8) - SENS2;
     int64_t P64 = ((D1 * SENS) >> 21) - OFF;
     *pressure = P64 >> 15;
 }

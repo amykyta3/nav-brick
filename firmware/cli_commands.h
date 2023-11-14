@@ -21,6 +21,7 @@
 #define CMDTABLE    {"args"  , cmd_ArgList  },\
                     {"db"    , cmd_SetLightness},\
                     {"dp"    , cmd_SetLightness},\
+                    {"d"     , cmd_Debug},\
                     {"s"     , cmd_DumpSlate}
 
 
@@ -28,5 +29,6 @@
 int cmd_ArgList(uint8_t argc, char *argv[]);
 int cmd_SetLightness(uint8_t argc, char *argv[]);
 int cmd_DumpSlate(uint8_t argc, char *argv[]);
+int cmd_Debug(uint8_t argc, char *argv[]);
 
 #endif

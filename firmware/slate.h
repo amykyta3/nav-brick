@@ -38,8 +38,10 @@ typedef struct {
         uint16_t ir; // unitless?
     } light;
 
-    int32_t temperature; // C * 100
-    int32_t pressure; // mbar * 100
+    struct {
+        int32_t temperature; // C * 100
+        int32_t pressure; // mbar * 100
+    } alt;
 
     uint16_t sensor_poll_duration;
 

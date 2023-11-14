@@ -117,7 +117,7 @@ static void get_speed_str(char *str){
 }
 
 static void get_pressure_str(char *str){
-    snprintf(str, STRBUF_SIZE, "%.1f KPA", (Slate.pressure * 0.001));
+    snprintf(str, STRBUF_SIZE, "%.1f KPA", (Slate.alt.pressure * 0.001));
 }
 
 void gui_refresh_display(void){

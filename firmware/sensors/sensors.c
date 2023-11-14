@@ -45,16 +45,16 @@ static void sample_px(void){
     static uint8_t idx;
     static bool buffer_ok = false;
 
-    px_sensor_get_sample(&Slate.temperature, &buffer[idx]);
+    px_sensor_get_sample(&Slate.alt.temperature, &buffer[idx]);
 
     if(buffer_ok){
         // moving average
         int32_t sum;
         sum = 0;
         for(uint8_t i=0; i<PX_AVERAGE; i++) sum += buffer[i];
-        Slate.pressure = sum / PX_AVERAGE;
+        Slate.alt.pressure = sum / PX_AVERAGE;
     } else {
-        Slate.pressure = buffer[idx];
+        Slate.alt.pressure = buffer[idx];
     }
 
     idx++;

@@ -87,14 +87,14 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("gps.altitude: %ld +/- %lu\n", Slate.gps.altitude, Slate.gps.altitude_accuracy);
     printf("gps.speed: %lu +/- %lu\n", Slate.gps.speed, Slate.gps.speed_accuracy);
     printf("gps.heading: %ld +/- %lu\n", Slate.gps.heading, Slate.gps.heading_accuracy);
-    printf("gps.good_frame_count: %d\n", Slate.gps.good_frame_count);
-    printf("gps.bad_frame_count: %d\n", Slate.gps.bad_frame_count);
+    printf("gps.good_frame_count: %u\n", Slate.gps.good_frame_count);
+    printf("gps.bad_frame_count: %u\n", Slate.gps.bad_frame_count);
 
     printf("light.vis: %u\n", Slate.light.vis);
     printf("light.ir: %u\n", Slate.light.ir);
 
-    printf("temperature: %ld\n", Slate.temperature);
-    printf("pressure: %ld\n", Slate.pressure);
+    printf("alt.temperature: %ld\n", Slate.alt.temperature);
+    printf("alt.pressure: %ld\n", Slate.alt.pressure);
 
     printf("sensor_poll_duration: %u\n", Slate.sensor_poll_duration);
 
@@ -106,5 +106,10 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("gui_state.speed_mode: %d\n", Slate.nv.gui_state.speed_mode);
     printf("gui_state.pressure_mode: %d\n", Slate.nv.gui_state.pressure_mode);
 
+    return 0;
+}
+
+
+int cmd_Debug(uint8_t argc, char *argv[]){
     return 0;
 }
