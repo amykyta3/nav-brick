@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #include "slate.h"
 #include "display/display.h"
+
+#define ROUND_TO(n, x) (roundf((n) / (x)) * (x))
 
 //------------------------------------------------------------------------------
 // Page state defs
@@ -69,17 +72,23 @@ void gui_next_page_mode(void){
 }
 
 static void get_altitude_str(char *str){
+    float alt = Slate.current_altitude;
     switch(Slate.nv.gui_state.altitude_mode){
         case METERS: {
-            snprintf(str, STRBUF_SIZE, "%.1f m", Slate.current_altitude);
+            alt = ROUND_TO(alt, 0.2);
+            snprintf(str, STRBUF_SIZE, "%.1f m", alt);
             break;
         }
         case FEET: {
-            snprintf(str, STRBUF_SIZE, "%.1f FT", (Slate.current_altitude * 3.28084));
+            alt *= 3.28084;
+            alt = ROUND_TO(alt, 0.5);
+            snprintf(str, STRBUF_SIZE, "%.1f FT", alt);
             break;
         }
         case BANANAS: {
-            snprintf(str, STRBUF_SIZE, "%.1f Bn", (Slate.current_altitude * 5.618));
+            alt *= 5.618;
+            alt = ROUND_TO(alt, 0.5);
+            snprintf(str, STRBUF_SIZE, "%.1f Bn", alt);
             break;
         }
     }

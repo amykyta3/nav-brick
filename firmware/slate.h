@@ -27,7 +27,9 @@ typedef struct {
         int32_t heading; // Degrees * 100,000
         uint32_t heading_accuracy; // Degrees * 100,000
         uint16_t good_frame_count;
+        uint16_t bad_preamble_count;
         uint16_t bad_frame_count;
+        uint16_t unhandled_frame_count;
     } gps;
 
     //--------------------------------------------------------------------------

@@ -114,7 +114,7 @@ void ubx_process_char(uint8_t c){
             if(c == 0xb5) {
                 state = PS_PRE2;
             } else {
-                Slate.gps.bad_frame_count++;
+                Slate.gps.bad_preamble_count++;
                 state = PS_PRE1;
             }
             break;
@@ -125,7 +125,7 @@ void ubx_process_char(uint8_t c){
             if(c == 0x62) {
                 state = PS_CLASS;
             } else {
-                Slate.gps.bad_frame_count++;
+                Slate.gps.bad_preamble_count++;
                 state = PS_PRE1;
             }
             break;
@@ -208,6 +208,10 @@ static void process_frame(ubx_frame_t *f){
         }
         case 0x0112: {
             process_VELNED_frame(f);
+            break;
+        }
+        default: {
+            Slate.gps.unhandled_frame_count++;
             break;
         }
     }

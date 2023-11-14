@@ -5,7 +5,11 @@
 #include "cli_commands.h"
 #include "display/display.h"
 #include "slate.h"
-#include "fram.h"
+
+#include "gps/gps.h"
+#include "gps/ubx.h"
+#include "sys.h"
+#include <util/delay.h>
 
 
 //==============================================================================
@@ -89,6 +93,8 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("gps.heading: %ld +/- %lu\n", Slate.gps.heading, Slate.gps.heading_accuracy);
     printf("gps.good_frame_count: %u\n", Slate.gps.good_frame_count);
     printf("gps.bad_frame_count: %u\n", Slate.gps.bad_frame_count);
+    printf("gps.bad_preamble_count: %u\n", Slate.gps.bad_preamble_count);
+    printf("gps.unhandled_frame_count: %u\n", Slate.gps.unhandled_frame_count);
 
     printf("light.vis: %u\n", Slate.light.vis);
     printf("light.ir: %u\n", Slate.light.ir);
@@ -111,5 +117,15 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
 
 
 int cmd_Debug(uint8_t argc, char *argv[]){
+    int timeout = 1000;
+    Slate.gps.unhandled_frame_count = 0;
+    ubx_init();
+    while(Slate.gps.unhandled_frame_count != 2) {
+        _delay_ms(1);
+        gps_poll_uart();
+        timeout--;
+        if(timeout == 0) break;
+    }
+    printf("ack count: %u\n", Slate.gps.unhandled_frame_count);
     return 0;
 }
