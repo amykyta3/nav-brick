@@ -104,20 +104,23 @@ static void get_altitude_str(char *str){
 
 #define MIN_SPEED_ACCURACY_CMPS 750
 static void get_speed_str(char *str){
+    uint16_t speed;
     switch(Slate.nv.gui_state.speed_mode){
         case KPH: {
             if(Slate.gps.speed_accuracy < MIN_SPEED_ACCURACY_CMPS) {
-                snprintf(str, STRBUF_SIZE, "%.1f KPH", (Slate.gps.speed * 0.036));
+                speed = roundf(Slate.gps.speed * 0.036);
+                snprintf(str, STRBUF_SIZE, "%d kph", speed);
             } else {
-                snprintf(str, STRBUF_SIZE, "---- KPH");
+                snprintf(str, STRBUF_SIZE, "---- kph");
             }
             break;
         }
         case MPH: {
             if(Slate.gps.speed_accuracy < MIN_SPEED_ACCURACY_CMPS) {
-                snprintf(str, STRBUF_SIZE, "%.1f MPH", (Slate.gps.speed * 0.022369363));
+                speed = roundf(Slate.gps.speed * 0.022369363);
+                snprintf(str, STRBUF_SIZE, "%d mph", speed);
             } else {
-                snprintf(str, STRBUF_SIZE, "---- MPH");
+                snprintf(str, STRBUF_SIZE, "---- mph");
             }
             break;
         }

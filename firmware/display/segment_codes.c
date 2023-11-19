@@ -94,7 +94,6 @@ void display_data_from_str(uint16_t *data, const char *str, text_align_t align){
 
     // Convert string to 14-segment LED digit codes
     while(str[sidx]){
-        if(didx == N_LED_DIGITS) break;
 
         if(str[sidx] == '.' && didx > 0) {
             // merge decimal point into prior digit code
@@ -103,6 +102,7 @@ void display_data_from_str(uint16_t *data, const char *str, text_align_t align){
             continue;
         }
 
+        if(didx == N_LED_DIGITS) break;
         data[didx] = code_from_ascii(str[sidx]);
         didx++;
         sidx++;
