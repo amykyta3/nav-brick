@@ -6,6 +6,10 @@ void gps_init(void) {
     ubx_init();
 }
 
+void gps_reinit(void) {
+    ubx_init();
+}
+
 void gps_poll_uart(void){
     if(uart_rdcount(&gps_uart_dev)) {
         char c;

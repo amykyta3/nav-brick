@@ -70,9 +70,21 @@ void onIdle(void){
 }
 
 static void update_display(void){
+    static uint8_t update_count = 0;
+
     update_altitude();
     gui_refresh_display();
     slate_save_nv();
+    update_count++;
+
+    if(update_count % 10 == 0) {
+        if(!Slate.gps.got_POSLLH_frame || !Slate.gps.got_VELNED_frame) {
+            // Did not get any UBX frames from GPS.
+            // GPS may not have initialized correctly. Try again
+            gps_reinit();
+            Slate.gps.reinit_count++;
+        }
+    }
 }
 
 static void update_brightness(void){

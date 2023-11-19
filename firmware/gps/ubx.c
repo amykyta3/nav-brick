@@ -231,6 +231,7 @@ static void process_POSLLH_frame(ubx_frame_t *f){
     // Save to slate
     Slate.gps.altitude = hMSL;
     Slate.gps.altitude_accuracy = vAcc;
+    Slate.gps.got_POSLLH_frame = true;
 }
 
 static void process_VELNED_frame(ubx_frame_t *f){
@@ -254,6 +255,7 @@ static void process_VELNED_frame(ubx_frame_t *f){
     Slate.gps.speed_accuracy = sAcc;
     Slate.gps.heading = heading;
     Slate.gps.heading_accuracy = cAcc;
+    Slate.gps.got_VELNED_frame = true;
 }
 
 //------------------------------------------------------------------------------

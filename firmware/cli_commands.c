@@ -95,6 +95,7 @@ int cmd_DumpSlate(uint8_t argc, char *argv[]){
     printf("gps.bad_frame_count: %u\n", Slate.gps.bad_frame_count);
     printf("gps.bad_preamble_count: %u\n", Slate.gps.bad_preamble_count);
     printf("gps.unhandled_frame_count: %u\n", Slate.gps.unhandled_frame_count);
+    printf("gps.reinit_count: %u\n", Slate.gps.reinit_count);
 
     printf("light.vis: %u\n", Slate.light.vis);
     printf("light.ir: %u\n", Slate.light.ir);
