@@ -8669,7 +8669,7 @@
 			)
 		)
 		(property "Value" "FM25L16B-GTR"
-			(at 229.87 92.71 0)
+			(at 227.076 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects

@@ -24,4 +24,16 @@ Add yourself to the dialout group
 sudo usermod -aG dialout $USER
 ```
 
-Reboot for group settings to take effect
+Logout/login for group settings to take effect
+
+# Program device
+Connect USB. There will be two serial ports that get enumerated.
+The first is the application serial interface, the second is the UPDI
+programming interface. In the `Makefile`, confirm that `UPDI_PORT` and
+`SERIAL_PORT` are set correctly.
+
+To program:
+
+```
+make program
+```

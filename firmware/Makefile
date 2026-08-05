@@ -9,6 +9,8 @@ OBJDUMP:=avr-objdump
 
 PROJECT_NAME:=application
 EXECUTABLE= $(PROJECT_NAME).elf
+SERIAL_PORT= /dev/ttyACM0
+UPDI_PORT= /dev/ttyACM1
 
 MCU=avr128da32
 INCLUDES= $(AVR_DX_DFP)/include
@@ -58,14 +60,14 @@ disassemble: $(EXECUTABLE)
 
 .PHONY: ping
 ping:
-	pymcuprog ping --device $(MCU) --tool uart --uart /dev/ttyACM1
+	pymcuprog ping --device $(MCU) --tool uart --uart $(UPDI_PORT)
 
 program: $(EXECUTABLE).hex
-	pymcuprog write --device $(MCU) --tool uart --uart /dev/ttyACM1 -f $< --erase --verify
+	pymcuprog write --device $(MCU) --tool uart --uart $(UPDI_PORT) -f $< --erase --verify
 
 .PHONY: connect
 connect:
-	minicom -D /dev/ttyACM0
+	minicom -D $(SERIAL_PORT)
 
 ################################# AVR Compile ##################################
 
