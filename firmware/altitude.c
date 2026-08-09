@@ -56,11 +56,11 @@ void update_altitude(void){
         } else {
             // Error is within the GPS accuracy bounds.
             // Trim correction very slowly towards center of GPS altitude
-            // 1cm steps
+            // 1mm steps
             if(error > 0.0) {
-                Slate.altitude_trim += 0.01;
+                Slate.altitude_trim += 0.001;
             } else {
-                Slate.altitude_trim -= 0.01;
+                Slate.altitude_trim -= 0.001;
             }
         }
     }
