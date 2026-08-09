@@ -17,7 +17,7 @@ void usb_uart_init(void){
         &usb_uart_dev, &USB_USART,
         usb_uart_rxbuf, sizeof(usb_uart_rxbuf),
         usb_uart_txbuf, sizeof(usb_uart_txbuf),
-        UART_BAUD(9600)
+        UART_BAUD(115200)
     );
 
     stdout = &usb_stdout;
