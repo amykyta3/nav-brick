@@ -22,6 +22,9 @@
 
 // Useful tool for visualizing:
 // https://www.geocachingtoolbox.com/index.php?lang=en&page=segmentDisplay
+// Initialize tool to:
+// 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+// A B C D E F N J P G  H  K  L  M
 
 static const uint16_t ALPHAS[26] = {
     _A | _B | _C | _E | _F | _N | _J,   // A
@@ -69,14 +72,22 @@ static uint16_t code_from_ascii(char c){
     if(c >= '0' && c <= '9') return DIGITS[c - '0'];
     if(c == '.') return _DP;
     if(c == ' ') return 0;
+
+    // Uppercase
     if(c >= 'A' && c <= 'Z') return ALPHAS[c - 'A'];
+
+    // Can be represented as lowercase
     if(c == 'c') return (_N | _J | _E | _D);
     if(c == 'h') return (_E | _F | _N | _L);
     if(c == 'm') return (_E | _N | _L | _J | _C);
     if(c == 'n') return (_E | _N | _L);
     if(c == 'r') return (_E | _N);
     if(c == 'w') return (_C | _D | _E | _L);
+
+    // Fall back to uppercase
     if(c >= 'a' && c <= 'z') return ALPHAS[c - 'a'];
+
+    // Other glyphs
     if(c == '-') return (_J | _N);
     if(c == '+') return (_G | _J | _L | _N);
     if(c == '/') return (_H | _M);
