@@ -27,6 +27,7 @@ typedef enum {
 typedef enum {
     KPH,
     MPH,
+    METERS_PS,
     _speed_max
 } speed_mode_e;
 
@@ -121,6 +122,17 @@ static void get_speed_str(char *str){
                 snprintf(str, STRBUF_SIZE, "%d mph", speed);
             } else {
                 snprintf(str, STRBUF_SIZE, "---- mph");
+            }
+            break;
+        }
+        case METERS_PS: {
+            if(Slate.gps.speed_accuracy < MIN_SPEED_ACCURACY_CMPS) {
+                float speedf;
+                speedf = Slate.gps.speed;
+                speedf *= 0.01;
+                snprintf(str, STRBUF_SIZE, "%.1f m/s", speedf);
+            } else {
+                snprintf(str, STRBUF_SIZE, "---- m/s");
             }
             break;
         }
