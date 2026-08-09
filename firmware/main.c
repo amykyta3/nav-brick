@@ -100,11 +100,11 @@ static void update_brightness(void){
 
 void onButtonDown(uint8_t flags){
     if(flags & P_BUTTON1) {
-        gui_next_page();
+        gui_next_page_mode();
     }
 
     if(flags & P_BUTTON2) {
-        gui_next_page_mode();
+        gui_next_page();
     }
 }
 
