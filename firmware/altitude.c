@@ -43,7 +43,7 @@ void update_altitude(void){
 
     Slate.current_altitude = altitude;
 
-    // Update corretion factor if needed
+    // Update correction factor if needed
     if(Slate.gps.altitude_accuracy < (50U*1000U)){
         // GPS altitude is accurate enough to consider
         float error;
@@ -51,8 +51,17 @@ void update_altitude(void){
 
         if(fabsf(error) > (0.001 * Slate.gps.altitude_accuracy)) {
             // Error is greater than GPS accuracy.
-            // Do a correction
+            // Do a correction proportionate to the error
             Slate.altitude_trim += (error / GPS_TRIM_SLOWDOWN);
+        } else {
+            // Error is within the GPS accuracy bounds.
+            // Trim correction very slowly towards center of GPS altitude
+            // 1cm steps
+            if(error > 0.0) {
+                Slate.altitude_trim += 0.01;
+            } else {
+                Slate.altitude_trim -= 0.01;
+            }
         }
     }
 }
